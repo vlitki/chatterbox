@@ -1,0 +1,49 @@
+.Messages-message {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+.Messages-message.currentMember {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  
+.Message-content {
+    display: inline-block; 
+  }
+  
+.currentMember > .Message-content {
+    align-items: flex-end;
+  }
+  
+.Messages-message > .avatar {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 10px -10px;
+    background-image: url("/images/music-note-symbol.svg");
+  }
+  
+.Message-content > .username {
+    display: block;
+    color: rgb(13, 12, 12);
+    font-size: 20px;
+    padding-bottom: 4px;
+    font-weight: 600;
+  }
+  
+.Message-content > .text {
+    padding: 10px;
+    max-width: 600px;
+    margin: 0;
+    border-radius: 12px;
+    background-color: rgb(31, 137, 81);
+    color: white;
+    display: inline-block;
+    font-size: 22px;
+  }
+  
+.currentMember > .Message-content .text {
+    background-color: rgb(174, 0, 255);
+  }

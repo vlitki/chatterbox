@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
-import Messages from './components/Messages';
-import Input from './components/Input';
-import ChatContext from './context/ChatContext';
-import {randomName, randomColor} from "./user/random";
-
+import "./App.css";
+import Messages from "./components/Messages/Messages";
+import Input from "./components/Input/Input";
+import { randomName, randomColor } from "./user/random";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -12,75 +10,54 @@ function App() {
     username: randomName(),
     color: randomColor(),
   });
-
   const [drone, setDrone] = useState(null);
 
   useEffect(() => {
-    if(drone || user.id) {
+    if (drone || user.id) {
       return;
     }
-
     const log = new window.Scaledrone("gZnLjZdMnZ1mturE", {
       data: user,
-    });
-
-    setDrone(log);
+    }); 
+     setDrone(log);
   }, [user, drone]);
 
   useEffect(() => {
-    if(!drone) {
+    if (!drone) {
       return;
     }
-
-    drone.on('open', error => {
-      if(error) {
+    drone.on("open", (error) => {
+      if (error) {
         return console.error(error);
       }
 
-      const member = { ...user };
-      member.id = drone.clientId;
-
-      setUser(member);
+    const member = { ...user };
+    member.id = drone.clientId;
+    setUser(member);
     });
 
-    const room = drone.subscribe('observable-room');
-
-    room.on('message', message => {
-      setMessages(messages => [...messages, message]);
-    });
+    const room = drone.subscribe("observable-room");
+       room.on("message", (message) => {
+        setMessages((messages) => [...messages, message]);
+        });
   }, [drone, user]);
 
   function publishMessage(message) {
-      drone.publish({
-        room: "observable-room",
-        message,
-      });
-    }
-  
+    drone.publish({
+      room: "observable-room",
+      message,
+    });
+  }
 
-    return (
-      <div className="App">
-        <ChatContext.Provider
-         value={{
-          publishMessage,
-         }}
-         >
-        <div className="App-header">
-          <h1>Music Chatterbox</h1>
-        </div>
-        <Messages
-          messages={messages}
-          user={user}
-        />
-        <Input
-        />
-        </ChatContext.Provider>
+  return (
+    <div className="App">
+      <div className="App-header">
+        <h1>Music Chatterbox</h1>
       </div>
-    );
-    
-   
+      <Messages messages={messages} user={user} />
+      <Input onMessagePublish={publishMessage} />
+    </div>
+  );
 }
-
-
 
 export default App;

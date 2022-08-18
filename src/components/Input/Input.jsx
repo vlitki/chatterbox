@@ -1,9 +1,7 @@
-import { useState, useContext } from "react";
-import ChatContext from "../context/ChatContext";
-import "./Input.css"
+import { useState} from "react";
+import ".//Input.css";
 
-function Input() {
-    const {publishMessage} = useContext(ChatContext)
+function Input(props) {
     const [text, setText] = useState("");
   
    const onChange = e => {
@@ -13,7 +11,7 @@ function Input() {
    const onSubmit = e => {
       e.preventDefault();
       setText("");
-      publishMessage(text);
+      props.onMessagePublish(text);
     }
   
       return (

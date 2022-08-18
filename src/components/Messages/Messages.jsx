@@ -1,6 +1,6 @@
-import Message from "./Message";
+import Message from "../Message/Message";
 import React from "react";
-import "./Messages.css";
+import ".//Messages.css";
 
 function Messages({messages, user}) {
   

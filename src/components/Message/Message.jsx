@@ -1,4 +1,4 @@
-import "./Message.css"
+import ".//Message.css"
 
 function Message({message, user}) {
     const myMessage = user.id === message.clientId;
@@ -24,4 +24,4 @@ function Message({message, user}) {
   );
 }
 
-export default Message;       
+export default Message;             
